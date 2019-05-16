@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RSSParser from 'rss-parser';
 import './App.css';
+import FeedBar from './components/FeedBar';
 
 export default class App extends Component {
   state = {
@@ -22,12 +23,6 @@ export default class App extends Component {
       console.log(this.state);
     });
   };
-
-  componentDidMount() {
-    for (const link of this.state.links) {
-      this._addLinks(link);
-    }
-  }
 
   render() {
     const { result } = this.state;
@@ -63,8 +58,7 @@ export default class App extends Component {
 
     return (
       <div id="App">
-        {linkList}
-        <ul>{itemList}</ul>
+        <FeedBar />
       </div>
     );
   }
