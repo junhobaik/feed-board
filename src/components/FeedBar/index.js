@@ -5,7 +5,7 @@ import RSSParser from 'rss-parser';
 class FeedBar extends Component {
   constructor(props) {
     super(props);
-    this.state = { addInputValue: 'https://d2.naver.com/d2.atom' };
+    this.state = { addInputValue: 'http://woowabros.github.io/feed.xml' };
   }
 
   handleChange = event => {
