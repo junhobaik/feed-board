@@ -1,6 +1,8 @@
+/* eslint-disable no-restricted-syntax */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RSSParser from 'rss-parser';
+import PropTypes from 'prop-types';
 import './index.scss';
 
 class FeedBar extends Component {
@@ -9,42 +11,44 @@ class FeedBar extends Component {
     this.state = { addInputValue: 'http://woowabros.github.io/feed.xml' };
   }
 
-  handleChange = event => {
-    this.setState({ addInputValue: event.target.value });
-  };
-
-  _addFeedLink = url => {
-    const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
-
-    const parser = new RSSParser();
-
-    parser.parseURL(CORS_PROXY + url, (err, feed) => {
-      if (!err) {
-        this.props.onAddFeed(feed.title, url, feed.link);
-      } else {
-        // TODO: 잘못된 주소 || 기타 오류시 처리
-      }
-    });
-  };
-
   componentDidMount() {
     document.querySelector('.add-form').addEventListener('submit', e => {
       e.preventDefault();
 
       const { addInputValue } = this.state;
 
-      this._addFeedLink(addInputValue);
+      this.addFeedLink(addInputValue);
       this.setState({
         addInputValue: '',
       });
     });
   }
 
+  handleChange = event => {
+    this.setState({ addInputValue: event.target.value });
+  };
+
+  addFeedLink = url => {
+    const { onAddFeed } = this.props;
+    const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
+
+    const parser = new RSSParser();
+
+    parser.parseURL(CORS_PROXY + url, (err, feed) => {
+      if (!err) {
+        onAddFeed(feed.title, url, feed.link);
+      } else {
+        // TODO: 잘못된 주소 || 기타 오류시 처리
+      }
+    });
+  };
+
   render() {
+    const { addInputValue } = this.state;
     const { feed } = this.props;
 
-    let feedToArray = [];
-    for (let key in feed) {
+    const feedToArray = [];
+    for (const key in feed) {
       const data = feed[key];
 
       feedToArray.push({
@@ -57,7 +61,9 @@ class FeedBar extends Component {
       return (
         <li key={v.url}>
           <div className="feed-link">
-            <a href={v.url} target="_blank" rel="noopener noreferrer">{v.title}</a>
+            <a href={v.url} target="_blank" rel="noopener noreferrer">
+              {v.title}
+            </a>
           </div>
         </li>
       );
@@ -70,10 +76,10 @@ class FeedBar extends Component {
             <input
               type="text"
               placeholder="Add Feed"
-              value={this.state.addInputValue}
+              value={addInputValue}
               onChange={this.handleChange}
             />
-            <input type="submit" value="+"/>
+            <input type="submit" value="+" />
           </form>
         </div>
 
@@ -84,6 +90,11 @@ class FeedBar extends Component {
     );
   }
 }
+
+FeedBar.propTypes = {
+  onAddFeed: PropTypes.func.isRequired,
+  feed: PropTypes.object.isRequired,
+};
 
 export default connect(
   state => ({

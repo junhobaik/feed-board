@@ -19,23 +19,23 @@ const initialState = storageData || {
 };
 
 function addFeed(state, title, rssUrl, siteUrl) {
+  // eslint-disable-next-line no-shadow
   const { feed } = state;
   const feedName = feed[_.camelCase(title)] || undefined;
 
   if (feedName) {
     return state;
-  } else {
-    return {
-      feed: {
-        ...feed,
-        [_.camelCase(title)]: {
-          title,
-          rssUrl,
-          siteUrl,
-        },
-      },
-    };
   }
+  return {
+    feed: {
+      ...feed,
+      [_.camelCase(title)]: {
+        title,
+        rssUrl,
+        siteUrl,
+      },
+    },
+  };
 }
 
 export default function feed(state = initialState, action) {
