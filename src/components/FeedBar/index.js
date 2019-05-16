@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RSSParser from 'rss-parser';
+import './index.scss';
 
 class FeedBar extends Component {
   constructor(props) {
@@ -72,7 +73,7 @@ class FeedBar extends Component {
               value={this.state.addInputValue}
               onChange={this.handleChange}
             />
-            <input type="submit" />
+            <input type="submit" value="+"/>
           </form>
         </div>
 
