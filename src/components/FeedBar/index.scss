@@ -4,7 +4,7 @@
   margin: 1rem;
 
   .add-feed {
-    // border: 1px solid red;
+    margin-bottom: 2rem;
     input {
       all: unset;
       font-size: 1rem;
@@ -16,6 +16,34 @@
       cursor: pointer;
       color: gray;
       font-weight: bold;
+    }
+  }
+
+  .feed-list {
+    border-bottom: 1px solid black;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    ul,
+    li,
+    a {
+      all: unset;
+    }
+    a {
+      cursor: pointer;
+    }
+    ul {
+      display: flex;
+      flex-direction: row;
+    }
+    .feed-link {
+      padding: 0.5rem 1rem;
+      margin: 0.5rem;
+      border: 1px solid black;
+      border-radius: 5px;
+      &:hover{
+        background-color: lightgray;
+      }
     }
   }
 }
