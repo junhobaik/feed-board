@@ -44,9 +44,7 @@ class FeedBar extends Component {
 
     let feedToArray = [];
     for (let key in feed) {
-      console.log(feed);
       const data = feed[key];
-      console.log(key, data);
 
       feedToArray.push({
         title: data.title,
@@ -55,7 +53,6 @@ class FeedBar extends Component {
     }
 
     const feedList = feedToArray.map(v => {
-      console.log(v);
       return (
         <li key={v.url}>
           <div className="feed-link">
