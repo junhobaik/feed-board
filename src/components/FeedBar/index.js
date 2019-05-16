@@ -57,7 +57,7 @@ class FeedBar extends Component {
       return (
         <li key={v.url}>
           <div className="feed-link">
-            <a href={v.url}>{v.title}</a>
+            <a href={v.url} target="_blank" rel="noopener noreferrer">{v.title}</a>
           </div>
         </li>
       );
