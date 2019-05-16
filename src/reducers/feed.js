@@ -1,6 +1,9 @@
 import _ from 'lodash';
 
-const initialState = {
+const storageData = JSON.parse(localStorage.getItem('feed'));
+
+const initialState = storageData || {
+  // TODO: 차후 테스트용 데이터 제거
   feed: {
     d2Blog: {
       rssUrl: 'https://d2.naver.com/d2.atom',
