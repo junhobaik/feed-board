@@ -8,7 +8,7 @@ import './index.scss';
 class FeedBar extends Component {
   constructor(props) {
     super(props);
-    this.state = { addInputValue: 'http://woowabros.github.io/feed.xml' };
+    this.state = { addInputValue: 'http://tech.kakao.com/rss/' };
   }
 
   componentDidMount() {
@@ -36,7 +36,8 @@ class FeedBar extends Component {
 
     parser.parseURL(CORS_PROXY + url, (err, feed) => {
       if (!err) {
-        onAddFeed(feed.title, url, feed.link);
+        console.log('addFeedLink()', feed);
+        onAddFeed(url, feed);
       } else {
         // TODO: 잘못된 주소 || 기타 오류시 처리
       }
@@ -49,19 +50,14 @@ class FeedBar extends Component {
 
     const feedToArray = [];
     for (const key in feed) {
-      const data = feed[key];
-
-      feedToArray.push({
-        title: data.title,
-        url: data.siteUrl,
-      });
+      feedToArray.push(feed[key]);
     }
 
     const feedList = feedToArray.map(v => {
       return (
-        <li key={v.url}>
+        <li key={v.link}>
           <div className="feed-link">
-            <a href={v.url} target="_blank" rel="noopener noreferrer">
+            <a href={v.link} target="_blank" rel="noopener noreferrer">
               {v.title}
             </a>
           </div>
@@ -101,8 +97,8 @@ export default connect(
     feed: state.feed.feed,
   }),
   dispatch => ({
-    onAddFeed: (title, rssUrl, siteUrl) => {
-      dispatch({ type: 'ADD_FEED', title, rssUrl, siteUrl });
+    onAddFeed: (feedUrl, feed) => {
+      dispatch({ type: 'ADD_FEED', feedUrl, feed });
     },
   }),
 )(FeedBar);
