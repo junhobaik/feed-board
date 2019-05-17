@@ -28,18 +28,28 @@ class FeedBar extends Component {
     this.setState({ addInputValue: event.target.value });
   };
 
-  addFeedLink = url => {
+  addFeedLink = (url, urlCheckCnt = 0) => {
     const { onAddFeed } = this.props;
     const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
 
     const parser = new RSSParser();
 
+    const urlCheck = ['rss', 'feed.xml'];
+
     parser.parseURL(CORS_PROXY + url, (err, feed) => {
-      if (!err) {
-        console.log('addFeedLink()', feed);
-        onAddFeed(url, feed);
+      if (err && urlCheckCnt !== urlCheck.length) {
+        let url2;
+        if (url[url.length - 1] === '/') {
+          url2 = url + urlCheck[urlCheckCnt];
+        } else {
+          url2 = `${url}/${urlCheck[urlCheckCnt]}`;
+        }
+
+        this.addFeedLink(url2, urlCheckCnt + 1);
+      } else if (err) {
+        //
       } else {
-        // TODO: 잘못된 주소 || 기타 오류시 처리
+        onAddFeed(url, feed);
       }
     });
   };
