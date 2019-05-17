@@ -47,7 +47,7 @@ class FeedBar extends Component {
 
         this.addFeedLink(url2, urlCheckCnt + 1);
       } else if (err) {
-        //
+        // TODO: 잘못된 주소, 알수 없는 오류 처리
       } else {
         onAddFeed(url, feed);
       }
