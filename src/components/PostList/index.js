@@ -82,13 +82,6 @@ class PostList extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    feed: state.feed.feed,
-  }),
-  dispatch => ({
-    onAddFeed: (feedUrl, feed) => {
-      dispatch({ type: 'ADD_FEED', feedUrl, feed });
-    },
-  }),
-)(PostList);
+export default connect(state => ({
+  feed: state.feed.feed,
+}))(PostList);
