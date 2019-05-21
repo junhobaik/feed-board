@@ -44,6 +44,7 @@ const initialState = storageData || {
       link: 'http://woowabros.github.io/',
       pubDate: 'Fri, 10 May 2019 10:10:19 +0900',
       title: '우아한형제들 기술 블로그',
+      lastLoadDate: '2019-05-20T07:40:16.775Z',
     },
   },
 };
@@ -62,15 +63,37 @@ function addFeed(state, feedUrl, feedData) {
       [_.camelCase(feedData.title)]: {
         ...feedData,
         feedUrl: feedData.feedUrl || feedUrl,
+        lastLoadDate: new Date(),
       },
     },
   };
+}
+
+function loadItems(state, feedKey, feedItems) {
+  // eslint-disable-next-line no-shadow
+  const originFeed = state.feed;
+
+  if (feedKey) {
+    return {
+      feed: {
+        ...originFeed,
+        [feedKey]: {
+          ...originFeed[feedKey],
+          items: feedItems,
+          lastLoadDate: new Date(),
+        },
+      },
+    };
+  }
+  return state;
 }
 
 export default function feed(state = initialState, action) {
   switch (action.type) {
     case 'ADD_FEED':
       return addFeed(state, action.feedUrl, action.feed);
+    case 'LOAD_ITEMS':
+      return loadItems(state, action.feedKey, action.feedItems);
     default:
       return state;
   }

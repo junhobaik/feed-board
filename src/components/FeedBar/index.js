@@ -54,13 +54,30 @@ class FeedBar extends Component {
     });
   };
 
+  loadFeedItems = (feedKey, feed) => {
+    const { onLoadItems } = this.props;
+    const today = new Date();
+    const loadDate = new Date(feed.lastLoadDate);
+
+    if ((today - loadDate) / (60 * 60 * 1000) > 24) {
+      const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
+      const parser = new RSSParser();
+
+      parser.parseURL(CORS_PROXY + feed.feedUrl, (err, responseFeed) => {
+          onLoadItems(feedKey, responseFeed.items);
+      });
+    }
+  };
+
   render() {
     const { addInputValue } = this.state;
     const { feed } = this.props;
 
     const feedToArray = [];
     for (const key in feed) {
-      feedToArray.push(feed[key]);
+      const feedData = feed[key];
+      this.loadFeedItems(key, feedData);
+      feedToArray.push(feedData);
     }
 
     const feedList = feedToArray.map(v => {
@@ -110,6 +127,7 @@ class FeedBar extends Component {
 
 FeedBar.propTypes = {
   onAddFeed: PropTypes.func.isRequired,
+  onLoadItems: PropTypes.func.isRequired,
   feed: PropTypes.object.isRequired,
 };
 
@@ -120,6 +138,9 @@ export default connect(
   dispatch => ({
     onAddFeed: (feedUrl, feed) => {
       dispatch({ type: 'ADD_FEED', feedUrl, feed });
+    },
+    onLoadItems: (feedKey, feedItems) => {
+      dispatch({ type: 'LOAD_ITEMS', feedKey, feedItems });
     },
   }),
 )(FeedBar);
