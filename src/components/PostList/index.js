@@ -43,6 +43,10 @@ class PostList extends Component {
       }
     }
 
+    allItems.sort((a, b) => {
+      return new Date(b.pubDate) - new Date(a.pubDate);
+    })
+
     const itemList = allItems.map(v => {
       const { title, feedTitle, feedLink } = v;
       let { contentSnippet, pubDate } = v;
