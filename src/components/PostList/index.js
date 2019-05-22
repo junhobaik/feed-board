@@ -45,7 +45,7 @@ class PostList extends Component {
 
     allItems.sort((a, b) => {
       return new Date(b.pubDate) - new Date(a.pubDate);
-    })
+    });
 
     const itemList = allItems.map(v => {
       const { title, feedTitle, feedLink } = v;
@@ -55,24 +55,22 @@ class PostList extends Component {
       return (
         <li className="feed-item" key={v.link}>
           <div className="item-wrap">
-            <div className="item-info">
+            <a href={v.link} target="_blank" rel="noopener noreferrer">
+              <p className="title">{title}</p>
+            </a>
+
+            <a
+              href={feedLink}
+              className="feed-info"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>{`${feedTitle} / ${pubDate}`}</span>
+            </a>
+
+            <div className="content">
               <a href={v.link} target="_blank" rel="noopener noreferrer">
-                <p>
-                  <span className="title">{title}</span>
-                  <span> - </span>
-                  <span className="date">{pubDate}</span>
-                </p>
-                <div className="content">{contentSnippet}</div>
-              </a>
-            </div>
-            <div className="feed-info">
-              <a
-                href={feedLink}
-                className="feed-link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <p className="feed">{feedTitle}</p>
+                {contentSnippet}
               </a>
             </div>
           </div>
