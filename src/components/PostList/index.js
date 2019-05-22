@@ -16,28 +16,30 @@ class PostList extends Component {
 
     const allItems = [];
     for (const key in feed) {
-      for (const item of feed[key].items) {
-        const {
-          content,
-          contentSnippet,
-          guid,
-          isoDate,
-          link,
-          pubDate,
-          title,
-        } = item;
+      if (feed[key].showItems) {
+        for (const item of feed[key].items) {
+          const {
+            content,
+            contentSnippet,
+            guid,
+            isoDate,
+            link,
+            pubDate,
+            title,
+          } = item;
 
-        allItems.push({
-          feedTitle: feed[key].title,
-          feedLink: feed[key].link,
-          content,
-          contentSnippet,
-          guid,
-          isoDate,
-          link,
-          pubDate,
-          title,
-        });
+          allItems.push({
+            feedTitle: feed[key].title,
+            feedLink: feed[key].link,
+            content,
+            contentSnippet,
+            guid,
+            isoDate,
+            link,
+            pubDate,
+            title,
+          });
+        }
       }
     }
 

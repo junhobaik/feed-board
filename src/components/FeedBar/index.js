@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable no-restricted-syntax */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -64,9 +65,14 @@ class FeedBar extends Component {
       const parser = new RSSParser();
 
       parser.parseURL(CORS_PROXY + feed.feedUrl, (err, responseFeed) => {
-          onLoadItems(feedKey, responseFeed.items);
+        onLoadItems(feedKey, responseFeed.items);
       });
     }
+  };
+
+  toogleFeedItems = feedUrl => {
+    const { onToggleVisibleItems } = this.props;
+    onToggleVisibleItems(feedUrl);
   };
 
   render() {
@@ -83,10 +89,17 @@ class FeedBar extends Component {
     const feedList = feedToArray.map(v => {
       return (
         <li key={v.link}>
-          <div className="feed-link">
-            <a href={v.link} target="_blank" rel="noopener noreferrer">
-              {v.title}
-            </a>
+          <div
+            className={`feed-link ${v.showItems ? 'items-show' : 'items-hide'}`}
+            feedurl={v.feedUrl}
+            onClick={e => {
+              const feedUrl = e.target.attributes.feedurl.value;
+              this.toogleFeedItems(feedUrl);
+            }}
+            role="button"
+            tabIndex="0"
+          >
+            {v.title}
           </div>
         </li>
       );
@@ -128,6 +141,7 @@ class FeedBar extends Component {
 FeedBar.propTypes = {
   onAddFeed: PropTypes.func.isRequired,
   onLoadItems: PropTypes.func.isRequired,
+  onToggleVisibleItems: PropTypes.func.isRequired,
   feed: PropTypes.object.isRequired,
 };
 
@@ -141,6 +155,9 @@ export default connect(
     },
     onLoadItems: (feedKey, feedItems) => {
       dispatch({ type: 'LOAD_ITEMS', feedKey, feedItems });
+    },
+    onToggleVisibleItems: feedUrl => {
+      dispatch({ type: 'TOGGLE_VISIBLE_ITEMS', feedUrl });
     },
   }),
 )(FeedBar);

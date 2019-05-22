@@ -41,8 +41,8 @@
       margin: 0.5rem;
       border: 1px solid black;
       border-radius: 5px;
-      &:hover{
-        background-color: lightgray;
+      &.items-hide {
+        background-color: gray;
       }
     }
   }
