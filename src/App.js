@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import FeedBar from './components/FeedBar';
 import PostList from './components/PostList';
 
