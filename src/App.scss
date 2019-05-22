@@ -1,7 +1,11 @@
 #App {
   font-size: 14px;
   display: flex;
+  margin: 0 10% 0 5%;
   @media (max-width: 720px) {
     flex-direction: column;
+  }
+  @media (max-width: 1300px) {
+    margin:0
   }
 }
