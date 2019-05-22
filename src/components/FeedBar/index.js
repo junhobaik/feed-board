@@ -9,7 +9,7 @@ import './index.scss';
 class FeedBar extends Component {
   constructor(props) {
     super(props);
-    this.state = { addInputValue: 'http://tech.kakao.com/rss/' };
+    this.state = { addInputValue: '' };
   }
 
   componentDidMount() {
@@ -117,6 +117,12 @@ class FeedBar extends Component {
           >
             clear data
           </button>
+          <div>
+            <p>추천 피드 리스트</p>
+            <p>http://tech.kakao.com/rss/</p>
+            <p>http://woowabros.github.io/feed.xml</p>
+            <p>http://d2.naver.com/d2.atom</p>
+          </div>
         </div>
         <div className="add-feed">
           <form className="add-form">
