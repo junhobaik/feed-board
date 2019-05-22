@@ -9,7 +9,7 @@ const initialState = storageData || {
 function addFeed(state, feedUrl, feedData) {
   // eslint-disable-next-line no-shadow
   const { feed } = state;
-  const feedName = feed[_.snakeCase(feedUrl)] || undefined;
+  const feedName = feed[_.snakeCase(feedData.link)] || undefined;
 
   if (feedName) {
     return state;
@@ -18,7 +18,7 @@ function addFeed(state, feedUrl, feedData) {
   return {
     feed: {
       ...feed,
-      [_.snakeCase(feedUrl)]: {
+      [_.snakeCase(feedData.link)]: {
         ...feedData,
         feedUrl: feedData.feedUrl || feedUrl,
         lastLoadDate: new Date(),
@@ -47,10 +47,10 @@ function loadItems(state, feedKey, feedItems) {
   return state;
 }
 
-function toggleVisibleItems(state, feedUrl) {
+function toggleVisibleItems(state, feedLink) {
   // eslint-disable-next-line no-shadow
   const { feed } = state;
-  const feedKey = _.snakeCase(feedUrl);
+  const feedKey = _.snakeCase(feedLink);
   const originFeed = feed[feedKey];
 
   return {

@@ -91,10 +91,10 @@ class FeedBar extends Component {
         <li key={v.link}>
           <div
             className={`feed-link ${v.showItems ? 'items-show' : 'items-hide'}`}
-            feedurl={v.feedUrl}
+            feedlink={v.link}
             onClick={e => {
-              const feedUrl = e.target.attributes.feedurl.value;
-              this.toogleFeedItems(feedUrl);
+              const feedLink = e.target.attributes.feedlink.value;
+              this.toogleFeedItems(feedLink);
             }}
             role="button"
             tabIndex="0"

@@ -18,9 +18,9 @@ export function loadItems(feedKey, feedItems) {
   };
 }
 
-export function toggleVisibleItems(feedUrl) {
+export function toggleVisibleItems(feedLink) {
   return {
     type: TOGGLE_VISIBLE_ITEMS,
-    feedUrl,
+    feedLink,
   };
 }
