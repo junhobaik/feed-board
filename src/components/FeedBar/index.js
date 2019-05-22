@@ -107,23 +107,6 @@ class FeedBar extends Component {
 
     return (
       <div id="FeedBar">
-        <div className="dev-options">
-          <button
-            type="button"
-            onClick={() => {
-              localStorage.clear();
-              window.location.reload();
-            }}
-          >
-            clear data
-          </button>
-          <div>
-            <p>추천 피드 리스트</p>
-            <p>http://tech.kakao.com/rss/</p>
-            <p>http://woowabros.github.io/feed.xml</p>
-            <p>http://d2.naver.com/d2.atom</p>
-          </div>
-        </div>
         <div className="add-feed">
           <form className="add-form">
             <input
