@@ -9,10 +9,14 @@
   max-width: 20rem;
   border-right: 1px solid lightgray;
   overflow: auto;
+  background-color: white;
+  min-height: 100vh;
 
   @media (max-width: 720px) {
+    border-bottom: 1px solid lightgray;
     min-width: 100%;
     max-width: 100%;
+    min-height: auto;
     height: auto;
   }
 
@@ -56,7 +60,7 @@
       border: 1px solid gray;
       border-radius: 5px;
       cursor: pointer;
-      
+
       &:focus {
         outline: 0;
       }
