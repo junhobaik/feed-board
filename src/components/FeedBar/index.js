@@ -29,28 +29,30 @@ class FeedBar extends Component {
     this.setState({ addInputValue: event.target.value });
   };
 
-  addFeedLink = (url, urlCheckCnt = 0) => {
+  addFeedLink = (requestUrl, urlCheckCnt = 0) => {
     const { onAddFeed } = this.props;
     const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
-
     const parser = new RSSParser();
 
     const urlCheck = ['rss', 'feed.xml'];
 
-    parser.parseURL(CORS_PROXY + url, (err, feed) => {
+    parser.parseURL(CORS_PROXY + requestUrl, (err, feed) => {
+      let modifiedUrl = requestUrl;
+      if (requestUrl[requestUrl.length - 1] !== '/') modifiedUrl += '/';
+
       if (err && urlCheckCnt !== urlCheck.length) {
-        let url2;
-        if (url[url.length - 1] === '/') {
-          url2 = url + urlCheck[urlCheckCnt];
-        } else {
-          url2 = `${url}/${urlCheck[urlCheckCnt]}`;
+        let reduceCnt = modifiedUrl.length;
+        if (urlCheckCnt > 0) {
+          reduceCnt -= urlCheck[urlCheckCnt - 1].length + 1;
         }
 
-        this.addFeedLink(url2, urlCheckCnt + 1);
+        modifiedUrl = modifiedUrl.substr(0, reduceCnt) + urlCheck[urlCheckCnt];
+
+        this.addFeedLink(modifiedUrl, urlCheckCnt + 1);
       } else if (err) {
-        // TODO: 잘못된 주소, 알수 없는 오류 처리
+        console.log('알 수 없는 오류 발생', err);
       } else {
-        onAddFeed(url, feed);
+        onAddFeed(requestUrl, feed);
       }
     });
   };
