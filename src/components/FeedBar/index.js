@@ -65,7 +65,11 @@ class FeedBar extends Component {
       const parser = new RSSParser();
 
       parser.parseURL(CORS_PROXY + feed.feedUrl, (err, responseFeed) => {
-        onLoadItems(feedKey, responseFeed.items);
+        if (!err) {
+          onLoadItems(feedKey, responseFeed.items);
+        } else {
+          console.log('loadFeedItems Error: ', err);
+        }
       });
     }
   };
