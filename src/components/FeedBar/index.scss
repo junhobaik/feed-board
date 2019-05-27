@@ -67,12 +67,18 @@
   }
 
   .add-feed {
+    display: flex;
     input {
       all: unset;
       font-size: 1rem;
       height: 2rem;
       border-bottom: 1px solid #555;
       padding: 0 0.5rem;
+    }
+
+    input[type='text']{
+      flex-grow: 1;
+      max-width: 10rem;
     }
 
     input[type='submit'] {
