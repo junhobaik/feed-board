@@ -179,7 +179,7 @@ class FeedBar extends Component {
       <div id="FeedBar">
         <div className="feed-bar-header">
           <div className="app-title">
-            <h1>[APP_TITLE]</h1>
+            <h1>Feed Board</h1>
           </div>
           <div className="setting">
             <div
