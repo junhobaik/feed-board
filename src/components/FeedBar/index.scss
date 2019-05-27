@@ -102,6 +102,10 @@
         opacity: 0.25;
         text-decoration: line-through;
       }
+
+      .title-text {
+        pointer-events: none;
+      }
     }
     .delete-feed-link,
     .modify-title {
