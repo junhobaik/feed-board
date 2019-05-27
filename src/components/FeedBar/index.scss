@@ -36,6 +36,8 @@
       }
     }
     .setting {
+      cursor: pointer;
+      user-select: none;
       padding: 0 3px;
       height: 1.5rem;
       background-color: lightgray;
@@ -101,10 +103,11 @@
         text-decoration: line-through;
       }
     }
-    .delete-feed-link, .modify-title {
+    .delete-feed-link,
+    .modify-title {
       cursor: pointer;
-      width: 1.1rem;
-      height: 1.1rem;
+      width: 1rem;
+      height: 1rem;
       background-color: darkgray;
       text-align: center;
       border-radius: 100%;
@@ -113,6 +116,9 @@
       margin-right: 0.25rem;
       &:hover {
         background-color: gray;
+      }
+      &:focus {
+        outline: 0;
       }
     }
   }
