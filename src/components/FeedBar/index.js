@@ -200,7 +200,7 @@ class FeedBar extends Component {
           <form className="add-form">
             <input
               type="text"
-              placeholder="Add Feed"
+              placeholder="Feed URL"
               value={addInputValue}
               onChange={this.handleChange}
             />
