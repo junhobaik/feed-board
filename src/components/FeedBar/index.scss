@@ -40,11 +40,27 @@
       user-select: none;
       padding: 0 3px;
       height: 1.5rem;
-      background-color: lightgray;
       border-radius: 3px;
       display: flex;
       align-items: center;
       justify-content: center;
+
+      .setting-button {
+        color: darkgray;
+        outline: none;
+
+        &:hover {
+          color: gray;
+        }
+
+        &.set-on {
+          color: #009966;
+
+          &:hover {
+            color: #005566;
+          }
+        }
+      }
     }
   }
 

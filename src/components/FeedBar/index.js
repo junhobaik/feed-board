@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RSSParser from 'rss-parser';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon as Fa } from '@fortawesome/react-fontawesome';
+import { faCog, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+
 import './index.scss';
 
 class FeedBar extends Component {
@@ -183,12 +186,12 @@ class FeedBar extends Component {
           </div>
           <div className="setting">
             <div
-              className="setting-button"
+              className={`setting-button ${settingMode ? 'set-on' : 'set-off'}`}
               onClick={this.clickSetting}
               role="button"
               tabIndex={0}
             >
-              {settingMode ? 'DONE' : 'SETTING'}
+              {settingMode ? <Fa icon={faCheckCircle} /> : <Fa icon={faCog} />}
             </div>
           </div>
         </div>
