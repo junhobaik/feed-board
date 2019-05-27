@@ -105,14 +105,35 @@ class FeedBar extends Component {
             role="button"
             tabIndex="0"
           >
-            {v.title}
+            <span className="title-text">{v.title}</span>
+            {/* TODO: 타이틀 수정 기능 추가 */}
+            <input
+              type="text"
+              className="title-input"
+              value={v.title}
+              style={{ display: 'none' }}
+            />
           </div>
+          {/* TODO: 타이틀 수정, 피드 삭제 기능 추가 */}
+          <div className="modify-title"> m </div>
+          <div className="delete-feed-link"> - </div>
         </li>
       );
     });
 
     return (
       <div id="FeedBar">
+        <div className="feed-bar-header">
+          <div className="app-title">
+            <h1>[APP_TITLE]</h1>
+          </div>
+          <div className="setting">
+            <div className="setting-button" role="button">
+              Setting
+            </div>
+          </div>
+        </div>
+
         <div className="add-feed">
           <form className="add-form">
             <input
