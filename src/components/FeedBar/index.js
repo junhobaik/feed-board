@@ -26,6 +26,9 @@ class FeedBar extends Component {
         addInputValue: '',
       });
     });
+
+    // TODO: 차후 제거할 개발용 기능
+    document.querySelector('.setting-button').click();
   }
 
   handleChange = event => {
