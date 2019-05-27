@@ -26,9 +26,6 @@ class FeedBar extends Component {
         addInputValue: '',
       });
     });
-
-    // TODO: 차후 제거할 개발용 기능
-    document.querySelector('.setting-button').click();
   }
 
   handleChange = event => {
@@ -118,7 +115,12 @@ class FeedBar extends Component {
   };
 
   changeFeedTitle = e => {
-    console.log('changeFeedTitle, target.value: ', e.target.value);
+    const { onModifyTitle } = this.props;
+
+    const targetValue = e.target.value;
+    const feedUrl = e.target.parentNode.attributes.feedlink.value;
+
+    onModifyTitle(feedUrl, targetValue);
   };
 
   render() {
@@ -216,6 +218,7 @@ FeedBar.propTypes = {
   onLoadItems: PropTypes.func.isRequired,
   onToggleVisibleItems: PropTypes.func.isRequired,
   onRemoveFeed: PropTypes.func.isRequired,
+  onModifyTitle: PropTypes.func.isRequired,
   feed: PropTypes.object.isRequired,
 };
 
@@ -235,6 +238,9 @@ export default connect(
     },
     onRemoveFeed: feedUrl => {
       dispatch({ type: 'REMOVE_FEED', feedUrl });
+    },
+    onModifyTitle: (feedUrl, feedTitle) => {
+      dispatch({ type: 'MODIFY_TITLE', feedUrl, feedTitle });
     },
   }),
 )(FeedBar);

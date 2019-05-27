@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import _ from 'lodash';
 
 const storageData = JSON.parse(localStorage.getItem('feed'));
@@ -7,7 +8,6 @@ const initialState = storageData || {
 };
 
 function addFeed(state, feedUrl, feedData) {
-  // eslint-disable-next-line no-shadow
   const { feed } = state;
   const feedName = feed[_.snakeCase(feedData.link)] || undefined;
 
@@ -29,7 +29,6 @@ function addFeed(state, feedUrl, feedData) {
 }
 
 function loadItems(state, feedKey, feedItems) {
-  // eslint-disable-next-line no-shadow
   const originFeed = state.feed;
 
   if (feedKey) {
@@ -48,7 +47,6 @@ function loadItems(state, feedKey, feedItems) {
 }
 
 function toggleVisibleItems(state, feedLink) {
-  // eslint-disable-next-line no-shadow
   const { feed } = state;
   const feedKey = _.snakeCase(feedLink);
   const originFeed = feed[feedKey];
@@ -65,7 +63,6 @@ function toggleVisibleItems(state, feedLink) {
 }
 
 function removeFeed(state, feedUrl) {
-  // eslint-disable-next-line no-shadow
   const { feed } = state;
 
   const feedKey = _.snakeCase(feedUrl);
@@ -80,6 +77,23 @@ function removeFeed(state, feedUrl) {
   };
 }
 
+function modifyTitle(state, feedUrl, feedTitle) {
+  const { feed } = state;
+
+  const feedKey = _.snakeCase(feedUrl);
+  const originFeed = feed[feedKey];
+
+  return {
+    feed: {
+      ...feed,
+      [feedKey]: {
+        ...originFeed,
+        title: feedTitle
+      },
+    },
+  };
+}
+
 export default function feed(state = initialState, action) {
   switch (action.type) {
     case 'ADD_FEED':
@@ -90,6 +104,8 @@ export default function feed(state = initialState, action) {
       return toggleVisibleItems(state, action.feedUrl);
     case 'REMOVE_FEED':
       return removeFeed(state, action.feedUrl);
+    case 'MODIFY_TITLE':
+      return modifyTitle(state, action.feedUrl, action.feedTitle);
     default:
       return state;
   }
