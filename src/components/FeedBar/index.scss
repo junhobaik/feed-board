@@ -121,5 +121,10 @@
         outline: 0;
       }
     }
+    .delete-feed-link {
+      * {
+        pointer-events: none;
+      }
+    }
   }
 }
