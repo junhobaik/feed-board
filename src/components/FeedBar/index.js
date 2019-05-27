@@ -9,7 +9,10 @@ import './index.scss';
 class FeedBar extends Component {
   constructor(props) {
     super(props);
-    this.state = { addInputValue: '' };
+    this.state = {
+      addInputValue: '',
+      settingMode: false,
+    };
   }
 
   componentDidMount() {
@@ -81,8 +84,37 @@ class FeedBar extends Component {
     onToggleVisibleItems(feedUrl);
   };
 
+  clickSetting = () => {
+    const { settingMode } = this.state;
+
+    const feeds = document.querySelectorAll('.feed-link');
+
+    for (const feed of feeds) {
+      const titleInput = feed.querySelector('.title-input').value;
+      const titleText = feed.querySelector('.title-text').innerText;
+
+      if (!settingMode) {
+        feed.querySelector('.title-input').value = titleText;
+      } else {
+        feed.querySelector('.title-text').innerText = titleInput;
+      }
+    }
+
+    this.setState({
+      settingMode: !settingMode,
+    });
+  };
+
+  clickDeleteFeed = e => {
+    console.log(`clickDeleteFeed target: ${e.target.className}`);
+  };
+
+  changeFeedTitle = e => {
+    console.log('changeFeedTitle, target.value: ', e.target.value);
+  };
+
   render() {
-    const { addInputValue } = this.state;
+    const { addInputValue, settingMode } = this.state;
     const { feed } = this.props;
 
     const feedToArray = [];
@@ -99,24 +131,36 @@ class FeedBar extends Component {
             className={`feed-link ${v.showItems ? 'items-show' : 'items-hide'}`}
             feedlink={v.link}
             onClick={e => {
-              const feedLink = e.target.attributes.feedlink.value;
-              this.toogleFeedItems(feedLink);
+              if (!settingMode) {
+                const feedLink = e.target.attributes.feedlink.value;
+                this.toogleFeedItems(feedLink);
+              }
             }}
             role="button"
             tabIndex="0"
           >
-            <span className="title-text">{v.title}</span>
-            {/* TODO: 타이틀 수정 기능 추가 */}
+            <span
+              className="title-text"
+              style={{ display: settingMode ? 'none' : 'inline' }}
+            >
+              {v.title}
+            </span>
             <input
               type="text"
               className="title-input"
-              value={v.title}
-              style={{ display: 'none' }}
+              onChange={this.changeFeedTitle}
+              style={{ display: settingMode ? 'inline' : 'none' }}
             />
           </div>
-          {/* TODO: 타이틀 수정, 피드 삭제 기능 추가 */}
-          <div className="modify-title"> m </div>
-          <div className="delete-feed-link"> - </div>
+          <div
+            style={{ display: settingMode ? 'inline' : 'none' }}
+            className="delete-feed-link"
+            onClick={this.clickDeleteFeed}
+            role="button"
+            tabIndex="0"
+          >
+            -
+          </div>
         </li>
       );
     });
@@ -128,8 +172,13 @@ class FeedBar extends Component {
             <h1>[APP_TITLE]</h1>
           </div>
           <div className="setting">
-            <div className="setting-button" role="button">
-              Setting
+            <div
+              className="setting-button"
+              onClick={this.clickSetting}
+              role="button"
+              tabIndex={0}
+            >
+              {settingMode ? 'DONE' : 'SETTING'}
             </div>
           </div>
         </div>
