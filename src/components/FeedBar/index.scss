@@ -22,16 +22,17 @@
   }
 
   .feed-bar-header {
+    background-color: #525252;
     display: flex;
     min-height: 3rem;
     align-items: center;
     padding: 0 1rem;
-    
+
     .app-title {
       flex-grow: 1;
       h1 {
         all: unset;
-        color: #333;
+        color: #a9a9a9;
         font-size: 1.2rem;
         font-weight: bold;
       }
@@ -51,7 +52,7 @@
         outline: none;
 
         &:hover {
-          color: #555;
+          color: #999;
         }
 
         &.set-on {
@@ -139,7 +140,7 @@
       color: rgba(255, 255, 255, 0.8);
       font-weight: bold;
       margin-right: 0.25rem;
-      
+
       &:hover {
         background-color: #555;
       }
