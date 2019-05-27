@@ -74,7 +74,9 @@ function removeFeed(state, feedUrl) {
 
   return {
     ...state,
-    feed,
+    feed: {
+      ...feed,
+    },
   };
 }
 

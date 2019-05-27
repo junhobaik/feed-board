@@ -113,7 +113,6 @@ class FeedBar extends Component {
 
     const feedUrl = e.target.parentNode.querySelector('.feed-link').attributes
       .feedlink.value;
-    e.target.parentNode.remove();
 
     onRemoveFeed(feedUrl);
   };
