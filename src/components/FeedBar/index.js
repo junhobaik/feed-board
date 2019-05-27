@@ -109,7 +109,13 @@ class FeedBar extends Component {
   };
 
   clickDeleteFeed = e => {
-    console.log(`clickDeleteFeed target: ${e.target.className}`);
+    const { onRemoveFeed } = this.props;
+
+    const feedUrl = e.target.parentNode.querySelector('.feed-link').attributes
+      .feedlink.value;
+    e.target.parentNode.remove();
+
+    onRemoveFeed(feedUrl);
   };
 
   changeFeedTitle = e => {
@@ -210,6 +216,7 @@ FeedBar.propTypes = {
   onAddFeed: PropTypes.func.isRequired,
   onLoadItems: PropTypes.func.isRequired,
   onToggleVisibleItems: PropTypes.func.isRequired,
+  onRemoveFeed: PropTypes.func.isRequired,
   feed: PropTypes.object.isRequired,
 };
 
@@ -226,6 +233,9 @@ export default connect(
     },
     onToggleVisibleItems: feedUrl => {
       dispatch({ type: 'TOGGLE_VISIBLE_ITEMS', feedUrl });
+    },
+    onRemoveFeed: feedUrl => {
+      dispatch({ type: 'REMOVE_FEED', feedUrl });
     },
   }),
 )(FeedBar);

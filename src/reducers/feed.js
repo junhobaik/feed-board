@@ -64,6 +64,20 @@ function toggleVisibleItems(state, feedLink) {
   };
 }
 
+function removeFeed(state, feedUrl) {
+  // eslint-disable-next-line no-shadow
+  const { feed } = state;
+
+  const feedKey = _.snakeCase(feedUrl);
+
+  delete feed[feedKey];
+
+  return {
+    ...state,
+    feed,
+  };
+}
+
 export default function feed(state = initialState, action) {
   switch (action.type) {
     case 'ADD_FEED':
@@ -72,6 +86,8 @@ export default function feed(state = initialState, action) {
       return loadItems(state, action.feedKey, action.feedItems);
     case 'TOGGLE_VISIBLE_ITEMS':
       return toggleVisibleItems(state, action.feedUrl);
+    case 'REMOVE_FEED':
+      return removeFeed(state, action.feedUrl);
     default:
       return state;
   }
