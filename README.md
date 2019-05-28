@@ -1,6 +1,8 @@
 # Feed Board (rss-reader)
 
-**DEMO WEB: https://feedboard.junhobaik.synology.me/**
+
+**DEMO WEB: https://feedboard.netlify.com** [![Netlify Status](https://api.netlify.com/api/v1/badges/cdb3623b-a5f8-4346-abe9-541f4f4f5a3e/deploy-status)](https://app.netlify.com/sites/feedboard/deploys)
+
 
 ---
 
