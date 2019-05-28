@@ -11,8 +11,8 @@ const store = createStore(reducer);
 
 store.subscribe(() => {
   localStorage.setItem('feed', JSON.stringify(store.getState().feed));
-  // eslint-disable-next-line no-console
-  console.log('Save localStrage: ', JSON.parse(localStorage.getItem('feed')));
+  
+  // console.log('Save localStrage: ', JSON.parse(localStorage.getItem('feed')));
 });
 
 ReactDOM.render(
