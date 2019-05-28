@@ -196,7 +196,7 @@ class FeedBar extends Component {
           </div>
         </div>
 
-        <div className="add-feed">
+        <div className="add-feed" style={{ display: settingMode ? 'none' : 'inline' }}>
           <form className="add-form">
             <input
               type="text"
